@@ -26,6 +26,8 @@ class Empresa(models.Model):
     def __str__(self) -> str:
         return self.nome
 
+    def qtd_vagas(self):
+        return Vagas.objects.filter(empresa__id=self.id).count()
 
 class Vagas(models.Model):
     choices_experiencia = (

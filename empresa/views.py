@@ -48,6 +48,7 @@ def nova_empresa(request):
 
 def empresas(request):
     empresas = Empresa.objects.all()
+    tecnologias = Tecnologias.objects.all()
     return render(request, 'empresa.html', {'empresas':empresas})
 
 def excluir_empresa(request, id):
