@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from .models import Tecnologias, Empresa
@@ -45,7 +45,7 @@ def nova_empresa(request):
         empresa.save()
         messages.add_message(request, constants.SUCCESS, 'Empresa cadastrada com sucesso')
         return redirect('/home/nova_empresa')
-        return redirect('/home/nova_empresa')
+
 
 def empresas(request):
     tecnologias_filtrar = request.GET.get('tecnologias')
@@ -64,3 +64,7 @@ def excluir_empresa(request, id):
     empresa.delete()
     messages.add_message(request, constants.SUCCESS, 'Empresa excluída com sucesso')
     return redirect('/home/empresas')
+
+def unica_empresa(request, id):
+     unica_empresa = get_object_or_404(Empresa, id=id)
+     return render(request, 'unica_empresa.html', {'unica_empresa': unica_empresa})
