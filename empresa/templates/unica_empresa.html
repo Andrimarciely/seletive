@@ -81,7 +81,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="" method="POST">{% csrf_token %}
                     <div class="row">
                         <div class="col-md">
                             <label>Título:</label>
@@ -140,8 +140,8 @@
                         <div class="col-md">
                             <label>Empresa:</label>
                             <select name="empresa" class="form-select">
-                                {%for emp in empresas%}
-                                <option {% if unica_empresa.id == empresa_inter.id %} selected {% endif %}value="{{emp.id}}">{{emp}}</option>>
+                                {% for empresa_iter in empresas %}
+                                    <option {% if empresa_iter.id == unica_empresa.id %}selected{%endif%}  value="{{empresa_iter.id}}">{{empresa_iter}}</option>
                                 {% endfor %}
                             </select>
                         </div>
