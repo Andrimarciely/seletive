@@ -66,5 +66,11 @@ def excluir_empresa(request, id):
     return redirect('/home/empresas')
 
 def unica_empresa(request, id):
-     unica_empresa = get_object_or_404(Empresa, id=id)
-     return render(request, 'unica_empresa.html', {'unica_empresa': unica_empresa})
+    unica_empresa = get_object_or_404(Empresa, id=id)
+    empresas = Empresa.objects.all()
+    tecnologias = Tecnologias.objects.all()
+
+    return render(request, 'unica_empresa.html', {'unica_empresa': unica_empresa,
+                                            'tecnologias': tecnologias,
+                                            'empresas': empresas,
+                                                  })
