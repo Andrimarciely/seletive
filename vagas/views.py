@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse, Http404
-from django.shortcuts import redirect
+from django.shortcuts import redirect,get_object_or_404
 from empresa.models import Vagas
 from django.contrib import messages
 from django.contrib.messages import constants
@@ -41,3 +41,7 @@ def nova_vaga(request):
 
     elif request.method == "GET":
         raise Http404()
+
+def vaga(request,id):
+    vaga = get_object_or_404(Vagas, id=id)
+    return render(request,'vaga.html', {'vaga':vaga})
