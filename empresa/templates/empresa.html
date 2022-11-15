@@ -57,7 +57,11 @@
 
                         <tr {% if not forloop.counter|is_par %} class="tabela-linha" {% endif %} >
                             <td>{{empresa.id}}</td>
-                            <td>{{empresa.nome}}</td>
+                            <td>
+                                <a href="{% url 'unica_empresa' empresa.id %}">
+                                 {{empresa.nome}}
+                                </a>
+                            </td>
                             <td>{{empresa.endereco}}</td>
 
                             <td>

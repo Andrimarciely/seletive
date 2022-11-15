@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.http import HttpResponse
-from .models import Tecnologias, Empresa
+from .models import Tecnologias, Empresa, Vagas
 from django.contrib import messages
 from django.contrib.messages import constants
 # Create your views here.
@@ -69,8 +69,8 @@ def unica_empresa(request, id):
     unica_empresa = get_object_or_404(Empresa, id=id)
     empresas = Empresa.objects.all()
     tecnologias = Tecnologias.objects.all()
-
+    vagas = Vagas.objects.filter(empresa_id=id)
     return render(request, 'unica_empresa.html', {'unica_empresa': unica_empresa,
                                             'tecnologias': tecnologias,
                                             'empresas': empresas,
-                                                  })
+                                                  'vagas':vagas})
