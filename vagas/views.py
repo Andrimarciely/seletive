@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from empresa.models import Vagas
-
+from django.contrib import messages
+from django.contrib.messages import constants
 def nova_vaga(request):
     if request.method == "POST":
         titulo = request.POST.get('titulo')
@@ -34,7 +35,7 @@ def nova_vaga(request):
         vaga.tecnologias_dominadas.add(*tecnologias_domina)
 
         vaga.save()
-
+        messages.add_message(request, constants.SUCCESS, 'Vaga criada com sucesso.')
         return redirect(f'/home/unica_empresa/{empresa}')
 
 
