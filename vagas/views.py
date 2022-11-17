@@ -6,6 +6,7 @@ from django.shortcuts import redirect,get_object_or_404
 from empresa.models import Vagas
 from django.contrib import messages
 from django.contrib.messages import constants
+from .models import Tarefa
 def nova_vaga(request):
     if request.method == "POST":
         titulo = request.POST.get('titulo')
@@ -44,4 +45,22 @@ def nova_vaga(request):
 
 def vaga(request,id):
     vaga = get_object_or_404(Vagas, id=id)
-    return render(request,'vaga.html', {'vaga':vaga})
+    tarefas = Tarefa.objects.filter(vaga=vaga).filter(realizada=False)
+    return render(request,'vaga.html', {'vaga':vaga, 'tarefas':tarefas})
+
+
+def nova_tarefa(request, id_vaga):
+    titulo = request.POST.get('titulo')
+    prioridade = request.POST.get("prioridade")
+    data = request.POST.get('data')
+    try:
+        tarefa = Tarefa(vaga_id=id_vaga,
+                        titulo=titulo,
+                        prioridade=prioridade,
+                        data=data)
+        tarefa.save()
+        messages.add_message(request, constants.SUCCESS, 'Tarefa adicionada com sucesso')
+        return redirect(f'/vagas/vaga/{id_vaga}')
+    except:
+        messages.add_message(request, constants.SUCCESS, 'Erro interno do sistema')
+        return redirect(f'/vagas/vaga/{id_vaga}')
