@@ -67,7 +67,7 @@
                                 {{tarefa.data}}
                             </label>
                             <label class="prioridade-bloco">
-                                <a href="#" class="btn btn-success">Finalizado</a>
+                                <a href="{% url 'realizar_tarefa' tarefa.id %}" class="btn btn-success">Finalizado</a>
                             </label>
 
                         </div>
@@ -95,7 +95,8 @@
             </div>
 
             <div class="col-md">
-                <form>
+
+                <form action = "{% url 'envia_email' vaga.id %}" method="POST">{% csrf_token %}
                     <label>Assunto:</label>
                     <input name="assunto" type="text" class="form-control" placeholder="assunto">
                     <br>
@@ -115,18 +116,21 @@
             <div class="row">
                 <h3 class="titulo">Histórico de e-mails</h3>
 
-                    <div class="col-md">
+                   {% for email in emails%}
+                        <div class="col-md">
 
-                        <div class="box-email">
+                          <div class="box-email">
                             <div class="header-email">
-                                Assunto
+                                {{email.assunto}}
+                            </div>
+                            <div class="body-email">
+                                {{email.corpo}}
                             </div>
 
-                            <div class="body-email">
-                                Corpo do email
-                            </div>
+                          </div>
 
                         </div>
+                    {% endfor %}
 
                     </div>
 
@@ -140,18 +144,7 @@
 
     <div class="container bg3">
         <div class="row">
-            <div class="col-md">
-                <p class="titulo2">Tecnologias que domino</p>
 
-                <div class="li-tech">
-                    Python
-
-                    <svg class="arrow-right" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                    </svg>
-                </div>
-
-            </div>
 
             <div class="col-md">
                 <p class="titulo2">Preciso estudar</p>
